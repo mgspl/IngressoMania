@@ -3,6 +3,7 @@ package br.edu.utfpr.futebol.api_jogos.controllers;
 import br.edu.utfpr.futebol.api_jogos.dtos.JogosDTO;
 import br.edu.utfpr.futebol.api_jogos.model.Jogos;
 import br.edu.utfpr.futebol.api_jogos.repositories.JogoRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class JogosController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addOne(@RequestBody Jogos jogo) {
+    public ResponseEntity<String> addOne(@Valid @RequestBody Jogos jogo) {
         if (jogo.getEstadio() == null || jogo.getDataHora() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registro de jogo inválido");
         } else {
@@ -36,7 +37,7 @@ public class JogosController {
     }
 
     @PutMapping(path="/{id}")
-    public ResponseEntity<String> update(@PathVariable(name="id") Long idJogo, @RequestBody Jogos jogo) {
+    public ResponseEntity<String> update(@Valid @PathVariable(name="id") Long idJogo, @RequestBody Jogos jogo) {
         Jogos jogoDB = this.repository.findById(idJogo).orElse(null);
         if (jogoDB != null){
             jogoDB.setTimeCasa(jogo.getTimeCasa());

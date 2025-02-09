@@ -1,19 +1,37 @@
 package br.edu.utfpr.futebol.api_jogos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 public class Jogos {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jogo_seq")
     @SequenceGenerator(name = "jogo_seq", sequenceName = "jogo_seq", allocationSize = 1)
     private Long id;
+    @NotNull
+    @NonNull
     private String timeCasa;
+    @NotNull
+    @NonNull
     private String timeVisitante;
+    @NotNull
+    @NonNull
     private String estadio;
+    @NotNull
+    @NonNull
+    @Min( value = 1)
     private Double precoIngresso;
+    @NotNull
+    @NonNull
     private LocalDateTime dataHora;
     public Jogos(){
 
@@ -28,51 +46,4 @@ public class Jogos {
         this.dataHora = dataHora;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTimeCasa() {
-        return timeCasa;
-    }
-
-    public void setTimeCasa(String timeCasa) {
-        this.timeCasa = timeCasa;
-    }
-
-    public String getTimeVisitante() {
-        return timeVisitante;
-    }
-
-    public void setTimeVisitante(String timeVisitante) {
-        this.timeVisitante = timeVisitante;
-    }
-
-    public String getEstadio() {
-        return estadio;
-    }
-
-    public void setEstadio(String estadio) {
-        this.estadio = estadio;
-    }
-
-    public Double getPrecoIngresso() {
-        return precoIngresso;
-    }
-
-    public void setPrecoIngresso(Double precoIngresso) {
-        this.precoIngresso = precoIngresso;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
 }
