@@ -62,7 +62,7 @@
 ```
 
 **Put:**
-- /api-times/edit/{id}
+- /torcedores/{id}
 
   Exemplo de payload:
   
