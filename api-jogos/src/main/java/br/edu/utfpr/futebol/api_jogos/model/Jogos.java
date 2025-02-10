@@ -21,6 +21,7 @@ public class Jogos {
     private String id;
     @NotNull
     @NonNull
+    @Min(value = 1)
     private int maxFans;
     @NotNull
     @NonNull
@@ -122,7 +123,7 @@ public class Jogos {
         this.dataJogo = dataJogo;
     }
 
-    public Jogos(JogoRequestDTO jogoRequest){
+   /* public Jogos(JogoRequestDTO jogoRequest){
         this.maxFans = jogoRequest.maxFans();
         this.registeredFans = jogoRequest.registeredFans();
         this.timeCasa = jogoRequest.timeCasa();
@@ -130,6 +131,6 @@ public class Jogos {
         this.estadio = jogoRequest.estadio();
         this.precoIngresso = jogoRequest.precoIngresso();
         this.dataJogo = jogoRequest.dataJogo();
-    }
+    } */
 
 }

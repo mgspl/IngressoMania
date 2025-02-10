@@ -1,6 +1,7 @@
 package br.edu.utfpr.futebol.api_jogos.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 @Entity(name="ingresso")
@@ -17,6 +18,7 @@ public class Ingresso {
     @ManyToOne
     private Jogos jogo;
 
+    @Email
     private String torcedorEmail;
 
     public Ingresso(Jogos jogo, String torcedorEmail) {

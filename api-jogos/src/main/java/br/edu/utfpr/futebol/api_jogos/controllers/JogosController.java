@@ -1,7 +1,9 @@
 package br.edu.utfpr.futebol.api_jogos.controllers;
 import br.edu.utfpr.futebol.api_jogos.dtos.IngressoRequestDTO;
 import br.edu.utfpr.futebol.api_jogos.dtos.JogoRequestDTO;
+import br.edu.utfpr.futebol.api_jogos.model.Ingresso;
 import br.edu.utfpr.futebol.api_jogos.model.Jogos;
+import br.edu.utfpr.futebol.api_jogos.repositories.IngressoRepository;
 import br.edu.utfpr.futebol.api_jogos.repositories.JogoRepository;
 import br.edu.utfpr.futebol.api_jogos.services.JogoService;
 import jakarta.validation.Valid;
@@ -73,50 +75,26 @@ public class JogosController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<JogoRequestDTO> getOne(@PathVariable(name = "id") String idJogo){
+    public ResponseEntity<Jogos> getOne(@PathVariable(name = "id") String idJogo){
         Jogos jogoEncontrado = this.repository.findById(idJogo).orElse(null);
         if (jogoEncontrado == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         else{
-            JogoRequestDTO jogosDTO = new JogoRequestDTO(
-                    jogoEncontrado.getId(),
-                    jogoEncontrado.getMaxFans(),
-                    jogoEncontrado.getRegisteredFans(),
-                    jogoEncontrado.getTimeCasa(),
-                    jogoEncontrado.getTimeVisitante(),
-                    jogoEncontrado.getEstadio(),
-                    jogoEncontrado.getPrecoIngresso(),
-                    jogoEncontrado.getDataJogo()
-            );
-            return ResponseEntity.status(HttpStatus.OK).body(jogosDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(jogoEncontrado);
         }
     }
 
     @GetMapping("/buscar-por-data")
-    public ResponseEntity<List<JogoRequestDTO>> buscarPorDataHora(@RequestParam String dataJogo) {
+    public ResponseEntity<List<Jogos>> buscarPorDataHora(@RequestParam String dataHora) {
         try {
             // Converter o parâmetro para LocalDateTime
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDateTime dataHoraFormatada = LocalDateTime.parse(dataJogo, formatter);
+            LocalDateTime dataHoraFormatada = LocalDateTime.parse(dataHora, formatter);
+            System.out.println(dataHoraFormatada);
 
             // Buscar jogos pelo repositório
             List<Jogos> jogosEncontrados = repository.findUpcomingGames(dataHoraFormatada);
-
-            // Mapear para DTOs
-            List<JogoRequestDTO> jogosDTOs = jogosEncontrados.stream()
-                    .map(jogo -> new JogoRequestDTO(
-                            jogo.getId(),
-                            jogo.getMaxFans(),
-                            jogo.getRegisteredFans(),
-                            jogo.getTimeCasa(),
-                            jogo.getTimeVisitante(),
-                            jogo.getEstadio(),
-                            jogo.getPrecoIngresso(),
-                            jogo.getDataJogo()
-                    ))
-                    .toList();
-
-            return ResponseEntity.ok(jogosDTOs);
+            return ResponseEntity.ok(jogosEncontrados);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

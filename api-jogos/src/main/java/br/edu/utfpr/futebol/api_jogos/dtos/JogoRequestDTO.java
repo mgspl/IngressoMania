@@ -13,10 +13,10 @@ public record JogoRequestDTO(String id,
                              int registeredFans,
                              @NotNull
                              @NonNull
-                             String timeCasa,
+                             Long timeCasa,
                              @NotNull
                              @NonNull
-                             String timeVisitante,
+                             Long timeVisitante,
                              @NotNull
                              @NonNull
                              String estadio,
