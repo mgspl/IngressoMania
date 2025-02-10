@@ -45,6 +45,9 @@
 **Delete:**
 - /api-times/delete/{id}
 ### Torcedores
+**Get:**
+/ingressos/historico/{email}
+
 **Get:**  
 - /torcedores
 - /torcedores/{id}
@@ -112,7 +115,4 @@
 **Delete:**
 - /jogos/{id}
 
-# To do:
-- Relacionar o ingresso vendido aos torcedores
-- Históricos de jogos para os torcedores
-- Envio de e-mail de confirmação de compra via AWS
+
